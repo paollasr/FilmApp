@@ -6,6 +6,7 @@ import {
 } from "./services/localStorage.js"
 
 const moviesContainer = document.querySelector('.movies') //reference to <div class="movies"></div>
+const form = document.querySelector('form')
 const input = document.querySelector('input')
 const searchButton = document.querySelector('.searchIcon') //reference to <img class="searchIcons">
 const checkboxInput = document.querySelector('input[type="checkbox"]') // reference to the checkbox input on htlm document
@@ -17,12 +18,11 @@ form.addEventListener('submit', function(event) {
   searchMovie()
 })
 
-
 function checkCheckboxStatus() {
   const isChecked = checkboxInput.checked
   if (isChecked) {
     cleanAllMovies()
-    const movies = LocalStorage.tFavoriteMovies() || []
+    const movies = LocalStorage.getFavoriteMovies() || []
     movies.forEach(movie => renderMovie(movie))
   } else {
     cleanAllMovies()
@@ -135,12 +135,15 @@ async function searchMovie() {
 
       const ratingContainer = document.createElement('div')
       ratingContainer.classList.add('rating')
+
       const starImage = document.createElement('img')
       starImage.src = 'images/star.png'
       starImage.alt = 'Star'
+
       const movieRate = document.createElement('span')
       movieRate.classList.add('movie-rate')
-      movieRate.textContent = rating
+      movieRate.textContent = vote_average
+
       ratingContainer.appendChild(starImage)
       ratingContainer.appendChild(movieRate)
       informations.appendChild(ratingContainer)
@@ -165,7 +168,7 @@ async function searchMovie() {
       movieDescriptionContainer.classList.add('movie-description')
 
       const movieDescription = document.createElement('span')
-      movieDescription.textContent = description
+      movieDescription.textContent = overview
 
       movieDescriptionContainer.appendChild(movieDescription)
 

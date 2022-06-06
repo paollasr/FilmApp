@@ -1,14 +1,14 @@
 const localStorageKey = 'favoriteMovies'
 
 function getFavoriteMovies(){
-  return JSON.parse(localStorage.getItem('favoriteMovies'))
+  return JSON.parse(localStorage.getItem('localStorageKey'))
 }
 
-function saveToLocalStorage(){
+function saveToLocalStorage(movie){
   const movies = getFavoriteMovies() || []
   movies.push(movie)
   const moviesJSON = JSON.stringify(movies) //converte favor movie(s) to json
-  localStorage.setItem('favoriteMovies, moviesJSON') //save fav movies to localStorage
+  localStorage.setItem(localStorageKey, moviesJSON) //save fav movies to localStorage
 }
 
 function checkMovieIsFavorited(id) {
@@ -20,7 +20,7 @@ function removeFromLocalStorage(id){
   const movies = getFavoriteMovies() || []
   const findMovie = movies.find(movie => movie.id == id)
   const newMovies = movies.filter(movie => movie.id != findMovie.id)
-  localStorage.setItem('favoriteMovies', JSON.stringify(newMovies))
+  localStorage.setItem('localStorageKey', JSON.stringify(newMovies))
 
 }
 
